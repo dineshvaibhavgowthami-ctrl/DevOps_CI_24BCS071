@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Inventory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar">
+    <div class="brand"><span class="brand-mark">W</span><span>Warehouse<br><small>Inventory System</small></span></div>
+    <nav aria-label="Main navigation">
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-page="add"><span>＋</span> Add item</button>
+        <button class="nav-link" data-page="search"><span>⌕</span> Barcode search</button>
+        <button class="nav-link" data-page="move"><span>⇄</span> Move item</button>
+        <button class="nav-link" data-page="exit"><span>↗</span> Exit verification</button>
+    </nav>
+    <div class="sidebar-note"><strong>Warehouse status</strong><span><i></i> System operational</span></div>
+</aside>
+<main class="main-content">
+    <header class="topbar"><div><p class="eyebrow">INVENTORY OPERATIONS</p><h1 id="page-title">Dashboard</h1></div><div class="date-label">Warehouse overview</div></header>
+    <div id="notice" class="notice" role="status" hidden></div>
+
+    <section class="page active" id="page-dashboard">
+        <div class="stats-grid">
+            <article class="stat-card"><span class="stat-icon blue">▣</span><span class="stat-label">Items in stock</span><strong id="total-items">—</strong><small>Currently in warehouse</small></article>
+            <article class="stat-card"><span class="stat-icon green">▤</span><span class="stat-label">Occupied cells</span><strong id="occupied-cells">—</strong><small>Cells with inventory</small></article>
+            <article class="stat-card"><span class="stat-icon purple">□</span><span class="stat-label">Available cells</span><strong id="available-cells">—</strong><small>Ready for allocation</small></article>
+        </div>
+        <div class="content-grid">
+            <article class="panel"><div class="panel-heading"><div><h2>Recent movements</h2><p>Latest item location changes</p></div><span class="tag">ACTIVITY</span></div>
+                <div class="table-wrap"><table><thead><tr><th>ITEM</th><th>BARCODE</th><th>FROM</th><th>TO</th></tr></thead><tbody id="movement-rows"><tr><td colspan="4" class="empty">No item movements yet.</td></tr></tbody></table></div>
+            </article>
+            <article class="panel alerts-panel"><div class="panel-heading"><div><h2>Exit alerts</h2><p>Rejected unauthorized attempts</p></div><span class="alert-count" id="alert-count">0</span></div><div id="alert-list" class="alert-list"><p class="empty">No unauthorized exit attempts.</p></div></article>
+        </div>
+    </section>
+
+    <section class="page" id="page-add">
+        <article class="panel form-panel"><div class="panel-heading"><div><h2>Add inventory item</h2><p>A suitable cell and barcode are assigned automatically.</p></div></div>
+            <form id="add-form" class="form-layout"><label>Item name<input name="name" required maxlength="100" placeholder="e.g. Packing tape"></label><label>Quantity<input name="quantity" type="number" min="1" required placeholder="Enter units"></label><button class="button primary" type="submit">Allocate &amp; save item</button></form>
+            <div id="created-item" class="result-card" hidden></div>
+        </article>
+    </section>
+
+    <section class="page" id="page-search">
+        <article class="panel form-panel"><div class="panel-heading"><div><h2>Find an item</h2><p>Look up an item's current warehouse details by barcode.</p></div></div>
+            <form id="search-form" class="inline-form"><label class="grow">Barcode<input name="barcode" required placeholder="Enter barcode, e.g. WH-..."></label><button class="button primary" type="submit">Search</button></form>
+            <div id="search-result" class="item-details" hidden></div>
+        </article>
+    </section>
+
+    <section class="page" id="page-move">
+        <article class="panel form-panel"><div class="panel-heading"><div><h2>Move inventory</h2><p>Choose an item and a destination cell with enough free capacity.</p></div></div>
+            <form id="move-lookup-form" class="inline-form"><label class="grow">Item barcode<input name="barcode" required placeholder="Enter item barcode"></label><button class="button secondary" type="submit">Find item</button></form>
+            <div id="move-current" class="current-location" hidden></div>
+            <form id="move-form" class="inline-form" hidden><label class="grow">Destination cell<select name="cellId" required></select></label><button class="button primary" type="submit">Move item</button></form>
+            <div id="move-result" class="result-card" hidden></div>
+        </article>
+    </section>
+
+    <section class="page" id="page-exit">
+        <article class="panel form-panel"><div class="panel-heading"><div><h2>Verify warehouse exit</h2><p>Authorized exits are recorded; unauthorized attempts are rejected and alerted.</p></div></div>
+            <form id="exit-form" class="form-layout"><label>Item barcode<input name="barcode" required placeholder="Enter item barcode"></label><label>Authorization<select name="authorized"><option value="true">Authorized exit</option><option value="false">Unauthorized exit</option></select></label><button class="button primary" type="submit">Verify exit</button></form>
+            <div id="exit-result" class="result-card" hidden></div>
+        </article>
+    </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
