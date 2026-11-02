@@ -27,3 +27,4 @@ JaCoCo creates `target/site/jacoco/index.html` during the test phase. The report
 - `InventoryMovementService`: transfers capacity, records item movement history and verifies exits.
 
 The three JUnit 5 / Mockito test classes cover allocation and capacity, barcode generation and lookup, item moves and history, and accepted/rejected exit verification. REST endpoints are under `/api`; the frontend calls them directly.
+DevOps Assignment 3a - Version Control and Continuous Integration
